@@ -1,0 +1,47 @@
+﻿@model IEnumerable<Expediente>
+
+@{
+    ViewData["Title"] = "Listado de Expedientes";
+}
+
+<h1>Listado de Expedientes</h1>
+
+<p>
+    <a class="btn btn-primary" asp-action="Create">Crear nuevo expediente</a>
+</p>
+
+<table class="table table-bordered table-striped">
+    <thead class="table-dark">
+        <tr>
+            <th>
+                Alumno
+            </th>
+            <th>
+                Materia
+            </th>
+            <th>
+                Nota Final
+            </th>
+            <th>
+                Observaciones
+            </th>
+            <th style="width:150px;"></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var e in Model)
+        {
+            <tr>
+                <td>@(e.Alumno?.NombreCompleto)</td>
+                <td>@(e.Materia?.NombreMateria)</td>
+                <td>@(e.NotaFinal?.ToString("0.00") ?? "—")</td>
+                <td>@e.Observaciones</td>
+                <td>
+                    <a class="btn btn-sm btn-warning" asp-action="Edit" asp-route-id="@e.ExpedienteId">Editar</a> |
+                    <a class="btn btn-sm btn-info" asp-action="Details" asp-route-id="@e.ExpedienteId">Detalles</a> |
+                    <a class="btn btn-sm btn-danger" asp-action="Delete" asp-route-id="@e.ExpedienteId">Eliminar</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -1,0 +1,72 @@
+﻿@{
+    ViewData["Title"] = "Sistema de expedientes académicos";
+}
+
+<div class="text-center mt-5">
+    <h1 class="display-4 mb-3">Colegio San José</h1>
+    <p class="lead">
+        Sistema web para la gestión de alumnos, materias y expedientes académicos.
+    </p>
+    <p class="text-muted">
+        Desde aquí puedes administrar la información básica de los estudiantes,
+        las materias impartidas y las calificaciones finales de cada alumno.
+    </p>
+</div>
+
+<div class="row mt-5 justify-content-center">
+    <div class="col-md-3 mb-3">
+        <div class="card h-100 shadow-sm">
+            <div class="card-body text-center">
+                <h5 class="card-title">Alumnos</h5>
+                <p class="card-text small text-muted">
+                    Registra y actualiza los datos de los estudiantes.
+                </p>
+                <a asp-controller="Alumnos" asp-action="Index" class="btn btn-primary">
+                    Gestionar alumnos
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-3 mb-3">
+        <div class="card h-100 shadow-sm">
+            <div class="card-body text-center">
+                <h5 class="card-title">Materias</h5>
+                <p class="card-text small text-muted">
+                    Administra las materias y los docentes asignados.
+                </p>
+                <a asp-controller="Materias" asp-action="Index" class="btn btn-primary">
+                    Gestionar materias
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-3 mb-3">
+        <div class="card h-100 shadow-sm">
+            <div class="card-body text-center">
+                <h5 class="card-title">Expedientes</h5>
+                <p class="card-text small text-muted">
+                    Registra notas finales y observaciones por alumno y materia.
+                </p>
+                <a asp-controller="Expedientes" asp-action="Index" class="btn btn-primary">
+                    Ver expedientes
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-3 mb-3">
+        <div class="card h-100 shadow-sm">
+            <div class="card-body text-center">
+                <h5 class="card-title">Reportes</h5>
+                <p class="card-text small text-muted">
+                    Consulta el promedio de notas por alumno con gráficas.
+                </p>
+                <a asp-controller="Reportes" asp-action="PromedioPorAlumno" class="btn btn-outline-primary">
+                    Ver promedios
+                </a>
+            </div>
+        </div>
+    </div>
+</div>

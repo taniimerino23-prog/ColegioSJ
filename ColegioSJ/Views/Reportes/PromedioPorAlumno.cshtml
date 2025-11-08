@@ -1,0 +1,81 @@
+﻿@using System.Text.Json
+@model IEnumerable<ColegioSJ.Models.PromedioAlumnoVM>
+
+@{
+    ViewData["Title"] = "Promedio de notas por alumno";
+
+    // Preparamos los datos para mandarlos como JSON a JavaScript
+    var labelsJson = JsonSerializer.Serialize(Model.Select(m => m.Alumno));
+    var dataJson = JsonSerializer.Serialize(Model.Select(m => m.Promedio ?? 0m));
+}
+
+<h2 class="mb-4 text-center">@ViewData["Title"]</h2>
+
+<!-- Tabla de promedios -->
+<table class="table table-striped table-bordered text-center align-middle">
+    <thead class="table-dark">
+        <tr>
+            <th>Alumno</th>
+            <th>Promedio</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var r in Model)
+        {
+            <tr>
+                <td>@r.Alumno</td>
+                <td>@(r.Promedio?.ToString("0.00") ?? "—")</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<!-- Contenedor de la gráfica -->
+<div class="mt-5">
+    <h3 class="text-center">Gráfica de promedios por alumno</h3>
+    <canvas id="graf" width="900" height="380"></canvas>
+</div>
+
+@section Scripts {
+    <!-- Librería Chart.js (CDN) -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <script>
+        // Ahora labels y data vienen como JSON válido generado por C#
+        const labels = @Html.Raw(labelsJson);
+        const data   = @Html.Raw(dataJson);
+
+        const ctx = document.getElementById('graf');
+
+        new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'Promedio de notas',
+                    data: data,
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        display: true,
+                        position: 'top'
+                    },
+                    title: {
+                        display: true,
+                        text: 'Promedios generales de alumnos'
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        suggestedMax: 10 // pon 100 si tus notas son de 0 a 100
+                    }
+                }
+            }
+        });
+    </script>
+}
